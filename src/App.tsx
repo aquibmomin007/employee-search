@@ -1,12 +1,12 @@
 import React from 'react';
 import './App';
-import DropDown from './components/DropDown/DropDown';
+import EmployeeSearch from './components/EmployeeSearch/EmployeeSearch';
 
 const App = () => {
   return (
     <div className="App">
       <div className="main-container">
-        <DropDown />
+        <EmployeeSearch />
       </div>
     </div>
   );
