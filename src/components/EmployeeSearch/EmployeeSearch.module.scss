@@ -1,0 +1,59 @@
+.employeeContainer{
+    padding: 40px;
+    margin: auto;
+}
+
+.employeeSearchContainer{
+    input{
+        border: 1px solid #5d5a5a;
+        padding: 6px;
+        color: #443b3b;
+        outline: grey auto 0;
+        line-height: 18px;
+    }
+
+    button{
+        height: 32px;
+        position: relative;
+        border: 1px solid #5d5a5a;
+        cursor: pointer;
+        box-sizing: border-box;
+        padding: 5px 15px;
+        margin-left: 5px;
+        line-height: 22px;
+        top: 1px;
+        color: #443b3b;
+        outline: grey auto 0;
+        background: #b5b5b1;
+
+        &:disabled{
+            opacity: 0.5;
+            border: 1px solid #ccc;
+            &:hover{
+                background: #b5b5b1;
+            }
+        }
+
+        &:hover{
+            background: lightgrey;
+        }
+    }
+}
+
+.employeeSearchNoResults{
+    margin: 10px 0;
+    text-align: left;
+    font-size: 14px;
+}
+
+.emplpoyeeList{
+    margin-top: 20px;
+}
+
+.employeeSearchListBlock{
+    text-align: left;
+}
+
+.employeeRootEmployee{
+    margin: 10px 0 5px;
+}

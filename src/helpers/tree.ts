@@ -21,7 +21,6 @@ export class Tree {
     }
   }
 
-
   _addNode(value: string, parentValue?: string) {
     const newNode = { value, children: [] };
 
@@ -38,29 +37,34 @@ export class Tree {
   }
 }
 
-const fetchEmployees = (tree: Tree) => async (nodeName: string, parentNodeName?: string) => {
-    const result = await window.fetch(encodeURI("http://api.additivasia.io/api/v1/assignment/employees/" + nodeName))
-    const data = await result.json()
+const ADDITIV_EMPLOYEE_HTTP_ENDPOINT = "http://api.additivasia.io/api/v1/assignment/employees/"
 
-    if (Object.keys(data).length === 0) {
-      return null
-    }
+const fetchEmployees = async (tree: Tree, nodeName: string, parentNodeName?: string) => {
+  const result = await window.fetch(encodeURI(ADDITIV_EMPLOYEE_HTTP_ENDPOINT + nodeName))
+  const data = await result.json()
 
-    if (!tree._root) {
-        tree._addNode(nodeName)
-    } else {
-        tree._addNode(nodeName, parentNodeName)
-    }
+  const emptyData = Object.keys(data).length === 0
+  if (emptyData) return
 
-    if (!data[1]) {
-        return
-    } else {
-        data[1]["direct-subordinates"].forEach((sub: string) => fetchEmployees(tree)(sub, nodeName))
-    }
+  if (!tree._root) {
+    tree._addNode(nodeName)
+  } else {
+    tree._addNode(nodeName, parentNodeName)
+  }
+
+  const list = data[1]
+  if (!list || !list['direct-subordinates']) {
+    return
+  }
+  
+  const subordinates: string[] = list["direct-subordinates"]
+  for (let i = 0; i < subordinates.length; i += 1) {
+    await fetchEmployees(tree, subordinates[i], nodeName)
+  }
 }
 
 export const fetchEmployeesInOrgChart = async (name: string) => {
   let tree = new Tree()
-  await fetchEmployees(tree)(name)
+  await fetchEmployees(tree, name)
   return tree._root
 }

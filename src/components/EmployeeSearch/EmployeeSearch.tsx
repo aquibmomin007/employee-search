@@ -1,49 +1,60 @@
 
-import React, { useState, useCallback, useEffect} from 'react';
-import styles from './EmployeeSearch.module.scss'
+import React, { useState, useCallback} from 'react';
 import { fetchEmployeesInOrgChart, TreeNode } from '../../helpers/tree';
+import styles from './EmployeeSearch.module.scss';
 
-type EmployeeSearchProps = {}
+const EmployeeSearch = () => { 
+    const [searchText, setSearchText] = useState('');
+    const [isDataFound, setIsDataFound] = useState(false);
+    const [employeeData, setEmployeeData] = useState<TreeNode | null>(null)
 
-const EmployeeSearch = (props: EmployeeSearchProps) => { 
-  const [searchText, setSearchText] = useState('');
-  const [employeeData, setEmployeeData] = useState<TreeNode | null>(null)
+    const handleSearch = useCallback((event) => setSearchText(event.target.value), [])
 
-  const handleSearch = useCallback((event) => {
-    setSearchText(event.target.value)
-  }, [])
+    const handleSubmit = useCallback(() => {
+        setIsDataFound(false)
+        if (searchText) {
+            fetchEmployeesInOrgChart(searchText)
+                .then(result => {
+                   if(result === null) setIsDataFound(true);
+                    setEmployeeData(result)
+                })
+        }
+    }, [searchText])
 
-  const handleSubmit = useCallback((event) => {
-    if (searchText) {
-        fetchEmployeesInOrgChart(searchText)
-            .then(result => {
-                console.log("result fetched :: ", result)
-                setEmployeeData(result)
-            })
-    }
-  }, [searchText])
-
-    const showNode = (t: TreeNode) => {
-        console.log(t.value, Array.from(t.children))
+    const showNode = ({value, children}: TreeNode, count: number, isRoot?: boolean) => {
         return (
-            <div>
-                <span>{t.value}</span>
-                {Array.from(t.children).map(c => showNode(c))}
-            </div>
+            <span>
+                {isRoot ? <h4 className={styles.employeeRootEmployee}>{value}</h4> : <span>{value}</span>}
+                {children.map(
+                    (c, i) =>
+                        <div style={{marginLeft: `${count +10}px`}} key={i}>{showNode(c, count + 10)}</div>
+                )}
+            </span>
         )
     }
 
-  return (
-    <div>
-        <div>
-            <input type="text" placeholder="Search..." onChange={handleSearch} value={searchText}/>
-            <button onClick={handleSubmit}>Search</button>
-            <div>
-                {employeeData ? showNode(employeeData) : false}
+    console.log({employeeData})
+
+    return (
+        <div className={styles.employeeContainer}>
+            <div className={styles.employeeSearchContainer}>
+                <input type="text" placeholder="Search..." onChange={handleSearch} value={searchText}/>
+                <button 
+                    onClick={handleSubmit}
+                    disabled={searchText === ''}
+                >
+                    Search
+                </button>
+                <div className={styles.employeeSearchListBlock}>
+                    {employeeData ? 
+                        showNode(employeeData, 10, true) : 
+                        isDataFound ? 
+                        <div className={styles.employeeSearchNoResults}>No results found</div>: ''
+                    }
+                </div>
             </div>
         </div>
-    </div>
-  )
+    )
 }
 
 export default EmployeeSearch;

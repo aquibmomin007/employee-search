@@ -1,11 +1,11 @@
 import React from 'react';
-import './App';
+import styles from './App.module.scss';
 import EmployeeSearch from './components/EmployeeSearch/EmployeeSearch';
 
 const App = () => {
   return (
-    <div className="App">
-      <div className="main-container">
+    <div className={styles.root}>
+      <div className={styles.mainWrapper}>
         <EmployeeSearch />
       </div>
     </div>
