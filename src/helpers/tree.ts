@@ -1,5 +1,10 @@
+type employeeNode = {
+  name: string;
+  designation?:string | undefined;
+}
+
 export type TreeNode = {
-  value: string,
+  value: employeeNode,
   children: TreeNode[],
 }
 
@@ -21,7 +26,7 @@ export class Tree {
     }
   }
 
-  _addNode(value: string, parentValue?: string) {
+  _addNode(value: employeeNode, parentValue?: string) {
     const newNode = { value, children: [] };
 
     if (this._root === null) {
@@ -30,7 +35,7 @@ export class Tree {
     }
 
     this._traverse(node => {
-      if (node && node.value === parentValue) {
+      if (node && node.value.name === parentValue) {
         node.children.push(newNode);
       }
     });
@@ -42,17 +47,24 @@ const ADDITIV_EMPLOYEE_HTTP_ENDPOINT = "http://api.additivasia.io/api/v1/assignm
 const fetchEmployees = async (tree: Tree, nodeName: string, parentNodeName?: string) => {
   const result = await window.fetch(encodeURI(ADDITIV_EMPLOYEE_HTTP_ENDPOINT + nodeName))
   const data = await result.json()
+  const nodeDesignation = data[0]
 
   const emptyData = Object.keys(data).length === 0
   if (emptyData) return
 
+  const nodeObj = {
+    name: nodeName,
+    designation: nodeDesignation
+  }
+
   if (!tree._root) {
-    tree._addNode(nodeName)
+    tree._addNode(nodeObj)
   } else {
-    tree._addNode(nodeName, parentNodeName)
+    tree._addNode(nodeObj, parentNodeName)
   }
 
   const list = data[1]
+  
   if (!list || !list['direct-subordinates']) {
     return
   }
@@ -67,4 +79,11 @@ export const fetchEmployeesInOrgChart = async (name: string) => {
   let tree = new Tree()
   await fetchEmployees(tree, name)
   return tree._root
+}
+
+export const fetchEmployeePresent = async (name:string) => {
+  const result = await window.fetch(encodeURI(ADDITIV_EMPLOYEE_HTTP_ENDPOINT + name))
+  const data = await result.json()
+
+  return data.length > 0
 }
