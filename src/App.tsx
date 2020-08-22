@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './App.module.scss';
 import EmployeeSearch from './components/EmployeeSearch/EmployeeSearch';
 import EmployeeOverview from './components/EmployeeOverview/EmployeeOverview'
-import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 const App = () => {
   return (

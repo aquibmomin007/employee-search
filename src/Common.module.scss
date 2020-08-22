@@ -1,0 +1,33 @@
+.employeeBtn{
+    height: 32px;
+    position: relative;
+    border: 1px solid #5d5a5a;
+    cursor: pointer;
+    box-sizing: border-box;
+    padding: 5px 15px;
+    margin-left: 5px;
+    line-height: 22px;
+    top: 1px;
+    color: #443b3b;
+    outline: grey auto 0;
+    background: lightgrey;
+
+    &:disabled{
+        opacity: 0.5;
+        border: 1px solid #ccc;
+        &:hover{
+            background: lightgrey;
+        }
+    }
+
+    &:hover{
+        background: #b5b5b1;
+    }
+}
+
+.employeeContainer{
+    padding: 40px;
+    margin: auto;
+    width: 80%;
+    max-width: 800px;
+}
