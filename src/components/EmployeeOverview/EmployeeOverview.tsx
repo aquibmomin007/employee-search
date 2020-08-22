@@ -25,25 +25,15 @@ const EmployeeOverview = (props:any) => {
         }
     }, [guid])
 
-    const getDashes = (count:number) => {
-        console.log({count})
-        let dash = '|';
-        for(let i=0; i < count/10; i++){
-            dash += '__'
-        }
-        return dash;
-    }
-
     const showNode = ({value, children}: TreeNode, count: number, isRoot?: boolean) => {
-        const dashStr = getDashes(count);
         return (
-            <span>
+            <span className={styles.employeeRootSpan}>
                 {isRoot ? 
                     <h4 className={styles.employeeRootEmployee}>{value.name} 
                         <span className={styles.employeeDesig}>{` (${value.designation})`}</span>
                     </h4> : 
                     <span className={styles.employeeNormalEmployee}>
-                        <span className={styles.employeeDash}>{dashStr}</span> 
+                        <span className={styles.employeeDash} style={{width: `${count * 2}px`}}></span> 
                             {value.name} 
                         <span className={styles.employeeDesig}>{` (${value.designation})`}</span>
                     </span>

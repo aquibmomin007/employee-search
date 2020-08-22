@@ -3,7 +3,6 @@
 .employeeRootEmployee{
     margin: 10px 0 5px;
     text-transform: capitalize;
-    text-align: center;
     width: 80%;
 }
 
@@ -15,8 +14,12 @@
 
 .employeeDash{
     position: relative;
-    top: -8px;
+    top: -6px;
     left: -7px;
+    display: inline-block;
+    border-left: 1px solid black;
+    border-bottom: 1px solid black;
+    height: 18px;
 }
 
 .employeeDesig{
@@ -32,4 +35,8 @@
     padding: 20px;
     box-sizing: border-box;
     border: 1px solid #656161;
+}
+
+.employeeRootSpan{
+    text-align: left;
 }
