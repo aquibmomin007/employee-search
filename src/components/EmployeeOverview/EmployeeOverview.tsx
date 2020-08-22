@@ -43,7 +43,7 @@ const EmployeeOverview = (props:any) => {
                     <span className={styles.employeeNormalEmployee}><span className={styles.employeeDash}>{dashStr}</span> {value.name} <span className={styles.employeeDesig}>{`(${value.designation})`}</span></span>}
                 {children.map(
                     (c, i) =>
-                    <div style={{marginLeft: `${count + 50}px`}} key={i}>{showNode(c, count + 10)}</div>
+                    <div style={{marginLeft: `${count}%`}} key={i}>{showNode(c, count + 10)}</div>
                 )}
             </span>
         )
@@ -54,17 +54,18 @@ const EmployeeOverview = (props:any) => {
     }, [history])
 
     return (
-        <>
-        <button onClick={handleGoBackToSearch}>Back to Search</button>
         <div className={styles.employeeContainer}>
-            <h3>Employee Overview</h3>
+            <div className={styles.employeeOverviewBackBtn}>
+                <button className={styles.employeeBtn} onClick={handleGoBackToSearch}>Back to Search</button>
+                <h3>Employee Overview</h3>
+            </div>
+            
             {employeeData && (
                 <div className={styles.EmployeeOverviewListBlock}>
                     {showNode(employeeData, 10, true)}
                 </div>
             )}
         </div>
-       </> 
     )
 }
 

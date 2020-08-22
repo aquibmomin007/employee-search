@@ -1,6 +1,7 @@
 .employeeContainer{
     padding: 40px;
     margin: auto;
+    width: 80%;
 }
 
 .employeeSearchContainer{
@@ -61,6 +62,8 @@
 .employeeRootEmployee{
     margin: 10px 0 5px;
     text-transform: capitalize;
+    text-align: center;
+    width: 80%;
 }
 
 .employeeNormalEmployee{
@@ -78,4 +81,33 @@
 .employeeDesig{
     font-style: italic;
     font-size: 12px;
+}
+
+
+
+.employeeBtn{
+    height: 32px;
+    position: relative;
+    border: 1px solid #5d5a5a;
+    cursor: pointer;
+    box-sizing: border-box;
+    padding: 5px 15px;
+    margin-left: 5px;
+    line-height: 22px;
+    top: 1px;
+    color: #443b3b;
+    outline: grey auto 0;
+    background: #b5b5b1;
+
+    &:disabled{
+        opacity: 0.5;
+        border: 1px solid #ccc;
+        &:hover{
+            background: #b5b5b1;
+        }
+    }
+
+    &:hover{
+        background: lightgrey;
+    }
 }

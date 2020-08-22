@@ -34,6 +34,7 @@ const EmployeeSearch = () => {
                 <div className={styles.employeeSearchContainer}>
                     <input type="text" placeholder="Search..." onChange={handleSearch} value={searchText}/>
                     <button 
+                        className={styles.employeeBtn}
                         onClick={handleSubmit}
                         disabled={searchText === ''}
                     >

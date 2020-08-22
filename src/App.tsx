@@ -9,12 +9,10 @@ const App = () => {
     <div className={styles.root}>
       <div className={styles.mainWrapper}>
         <BrowserRouter>
-          <div className="tabs">
             <Switch>
               <Route path={`/`} exact component={EmployeeSearch} />
               <Route path={`/overview/:guid`} exact component={EmployeeOverview} />
             </Switch>
-          </div>
         </BrowserRouter>
       </div>
     </div>
