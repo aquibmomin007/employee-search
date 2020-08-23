@@ -10,9 +10,7 @@ const EmployeeOverview = (props:any) => {
           params: { guid },
         },
       } = props;
-      const history = useHistory();
-
-      console.log({guid})
+    const history = useHistory();
 
     const [employeeData, setEmployeeData] = useState<TreeNode | null>(null)
 
