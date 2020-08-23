@@ -8,6 +8,7 @@ export type TreeNode = {
   children: TreeNode[],
 }
 
+//Reference: https://gist.github.com/mollerjorge/0283ac5f9905f1a3b5b95a7068f9c4d7#file-tree-js
 export class Tree {
   _root: TreeNode | null;
 
